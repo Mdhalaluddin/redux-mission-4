@@ -1,8 +1,10 @@
+import { useAppSelector } from "@/redux/features/hooks";
 import AddTodoModel from "./AddTodoModel";
 import TodoCard from "./TodoCard";
 import TodoFilter from "./TodoFilter";
 
 export default function TodoContainer() {
+  const { todos } = useAppSelector((state) => state.todos);
   return (
     <div>
       <div>
@@ -12,10 +14,9 @@ export default function TodoContainer() {
         </div>
         <div className="bg-primary-gradient w-full h-full rounded-xl p-[5px] ">
           <div className="bg-white p-5 w-full h-full rounded-xl space-y-3">
-            <TodoCard></TodoCard>
-            <TodoCard></TodoCard>
-            <TodoCard></TodoCard>
-            <TodoCard></TodoCard>
+            {todos.map((item) => (
+              <TodoCard {...item} />
+            ))}
           </div>
         </div>
       </div>

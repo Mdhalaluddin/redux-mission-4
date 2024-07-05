@@ -3,22 +3,33 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useAppDispatch } from "@/redux/features/hooks";
+import { addTodo } from "@/redux/features/todoSlice";
 import { DialogClose } from "@radix-ui/react-dialog";
 import { FormEvent, useState } from "react";
 
 export default function AddTodoModel() {
   const [task, setTask] = useState("");
   const [description, setDescription] = useState("");
+  const dispatch = useAppDispatch();
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
+
+    const randomString = Math.random().toString(36).substring(2, 7);
+
+    const taskDetels = {
+      id: randomString,
+      title: task,
+      description: description,
+    };
+    dispatch(addTodo(taskDetels));
 
     console.log(task, description);
   };
