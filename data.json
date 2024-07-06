@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "title": "Buy groceries",
+    "description": "Milk, Bread, Cheese, Butter",
+    "isCompleted": false
+  },
+  {
+    "id": 2,
+    "title": "Finish project",
+    "description": "Complete the final report and submit it",
+    "isCompleted": true
+  },
+  {
+    "id": 3,
+    "title": "Call Mom",
+    "description": "Check in and catch up",
+    "isCompleted": false
+  },
+  {
+    "id": 4,
+    "title": "Workout",
+    "description": "Go for a run in the park",
+    "isCompleted": true
+  }
+]
