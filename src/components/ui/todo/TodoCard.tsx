@@ -1,9 +1,11 @@
-import { useAppDispatch } from "@/redux/features/hooks";
+// import { useAppDispatch } from "@/redux/features/hooks";
+
+import { useUpdateTodoMutation } from "@/redux/api/api";
 import { Button } from "../button";
-import { removeTodo, toggleTodo } from "@/redux/features/todoSlice";
+import { removeTodo } from "@/redux/features/todoSlice";
 
 type TTodoProps = {
-  id: string;
+  _id: string;
   title: string;
   description: string;
   isCompleted: boolean;
@@ -11,15 +13,35 @@ type TTodoProps = {
 };
 
 export default function TodoCard({
+  _id,
   title,
   description,
-  id,
   isCompleted,
   priority,
 }: TTodoProps) {
-  const dispatch = useAppDispatch();
+  const [updateTodo, { isLoading }] = useUpdateTodoMutation();
+  // const dispatch = useAppDispatch();
   const toggleState = () => {
-    dispatch(toggleTodo(id));
+    // dispatch(toggleTodo(id));
+
+    const taskData = {
+      title,
+      description,
+      priority,
+      isCompleted: !isCompleted,
+    };
+
+    const options = {
+      id: _id,
+      data: {
+        title,
+        description,
+        priority,
+        isCompleted: !isCompleted,
+      },
+    };
+    console.log(options);
+    updateTodo(options);
   };
   return (
     <div>
@@ -30,14 +52,15 @@ export default function TodoCard({
           type="checkbox"
           name="complete"
           id="complete"
+          defaultChecked={isCompleted}
         />
         <p className="font-semibold flex-1">{title}</p>
         <div className="flex-1 flex items-center gap-2">
           <div
             className={`size-3 rounded-full 
-            ${priority === "High" ? "bg-red-500" : null}
-            ${priority === "Medium" ? "bg-yellow-500" : null}
-            ${priority === "Low" ? "bg-green-500" : null}
+            ${priority === "high" ? "bg-red-500" : null}
+            ${priority === "medium" ? "bg-yellow-500" : null}
+            ${priority === "low" ? "bg-green-500" : null}
             
             `}
           ></div>
